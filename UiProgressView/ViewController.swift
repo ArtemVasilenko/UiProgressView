@@ -1,4 +1,5 @@
 import UIKit
+@IBDesignable
 
 class ViewController: UIViewController {
     
@@ -21,6 +22,7 @@ class ViewController: UIViewController {
         button.backgroundColor = .red
         button.layer.cornerRadius = 30
         button.clipsToBounds = true
+        button.isEnabled = false
         button.addTarget(self, action: #selector (tapButton), for: .touchDown)
         return button
     }
@@ -50,10 +52,12 @@ class ViewController: UIViewController {
     @objc func updateProgressView() {
         if myProgressView.progress != 1.0 {
             myProgressView.progress += 0.01
+            myButton.isEnabled = false
         } else {
             UIView.animate(withDuration: 0.7, animations: {
                 self.myButton.alpha = 1
                 self.myButton.setTitle("Start", for: .normal)
+                self.myButton.isEnabled = true
                 self.myTimer.invalidate()
             })
         }
